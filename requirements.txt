@@ -5,7 +5,9 @@ numpy==1.13.3
 pandas==0.21.0
 PyMySQL==0.7.11
 python-dateutil==2.6.1
+python-slugify==1.2.4
 pytz==2017.3
 PyYAML==3.12
 six==1.11.0
 SQLAlchemy==1.1.15
+Unidecode==1.0.22

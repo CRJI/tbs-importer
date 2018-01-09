@@ -40,6 +40,7 @@ def get_reader(model):
     return {
         'authors': readers.AuthorsReader(db),
         'stories': readers.StoriesReader(db),
+        'stories_pages': readers.StoriesReader(db),
         'blogs': readers.BlogsReader(db),
         'dossiers': readers.DossiersReader(db),
     }[model]
@@ -48,6 +49,7 @@ def get_writer(model, item):
     return {
         'authors': writers.BaseWriter(item),
         'stories': writers.BaseWriter(item),
+        'stories_pages': writers.BaseWriter(item),
         'blogs': writers.BaseWriter(item),
         'dossiers': writers.BaseWriter(item),
     }[model]
@@ -56,6 +58,7 @@ def get_transformer(model, item):
     return {
         'authors': transformers.AuthorsTransformer(item),
         'stories': transformers.StoriesTransformer(item),
+        'stories_pages': transformers.StoriesPagesTransformer(item),
         'blogs': transformers.BlogsTransformer(item),
         'dossiers': transformers.DossiersTransformer(item),
     }[model]

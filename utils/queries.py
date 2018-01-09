@@ -23,7 +23,7 @@ SELECT
   r.title,
   f.idFolder  AS dossier,
   r.lead        AS intro,
-  r.content     AS body
+  r.content
 FROM blogRecords r
   LEFT JOIN blogRecords_stats s ON (r.idRecord = s.idRecord)
   LEFT JOIN blogRecords_settings settings ON (r.idRecord = settings.idRecord)
