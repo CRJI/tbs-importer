@@ -1,0 +1,27 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+bson = "==0.5.0"
+htmllaundry = "==2.1"
+lxml = "==4.1.1"
+numpy = "==1.13.3"
+pandas = "==0.21.0"
+pymysql = "==0.7.11"
+python-dateutil = "==2.6.1"
+python-slugify = "==1.2.4"
+pytz = "==2017.3"
+pyyaml = "==3.12"
+sqlalchemy = "==1.1.15"
+unidecode = "==1.0.22"
+"bs4" = "*"
+requests = "*"
+
+
+[dev-packages]
+

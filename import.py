@@ -5,7 +5,7 @@ import pymysql
 import sys
 from sqlalchemy import create_engine
 
-from utils import readers, transformers, writers
+from utils import readers, transformers, writers, scrapers
 
 model = sys.argv[1]
 if len(sys.argv) > 2:
@@ -42,7 +42,10 @@ def get_reader(model):
         'stories': readers.StoriesReader(db),
         'stories_pages': readers.StoriesReader(db),
         'blogs': readers.BlogsReader(db),
+        'blogs_pages': readers.BlogsReader(db),
         'dossiers': readers.DossiersReader(db),
+        'malta': scrapers.StoriesScraper(),
+        'malta_pages': scrapers.StoriesScraper(),
     }[model]
 
 def get_writer(model, item):
@@ -51,7 +54,10 @@ def get_writer(model, item):
         'stories': writers.BaseWriter(item),
         'stories_pages': writers.BaseWriter(item),
         'blogs': writers.BaseWriter(item),
+        'blogs_pages': writers.BaseWriter(item),
         'dossiers': writers.BaseWriter(item),
+        'malta': writers.BaseWriter(item),
+        'malta_pages': writers.BaseWriter(item),
     }[model]
 
 def get_transformer(model, item):
@@ -60,7 +66,10 @@ def get_transformer(model, item):
         'stories': transformers.StoriesTransformer(item),
         'stories_pages': transformers.StoriesPagesTransformer(item),
         'blogs': transformers.BlogsTransformer(item),
+        'blogs_pages': transformers.BlogsPagesTransformer(item),
         'dossiers': transformers.DossiersTransformer(item),
+        'malta': transformers.MaltaTransformer(item),
+        'malta_pages': transformers.MaltaPagesTransformer(item),
     }[model]
 
 with open(output_file, 'w') as outfile:

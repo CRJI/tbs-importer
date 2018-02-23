@@ -107,6 +107,30 @@ class StoriesPagesTransformer(BaseTransformer):
         return self.transformable
 
 
+class BlogsPagesTransformer(BaseTransformer):
+
+    def restructure(self):
+        page = {}
+        a = self.transformable.to_dict()
+        page['pk'] = a['pk']
+        page['model'] = 'wagtailcore.page'
+        page['fields'] = {
+            "title": a['title'],
+            "slug": slugify(a['title']),
+            "url_path": "/index/blogs/{}/".format(slugify(a['title'])),
+            "live": True,
+            "seo_title": a['title'],
+            "depth": 4,
+            "content_type_id": 37,
+            "path": "000100020001000{}".format(page['pk']),
+        }
+        self.transformable = page
+
+    def transform(self):
+        self.restructure()
+        return self.transformable
+
+
 class AuthorsTransformer(BaseTransformer):
 
     def restructure(self):
@@ -134,3 +158,47 @@ class DossiersTransformer(BaseTransformer):
         a['fields'].pop('pk')
         a['model'] = 'blacktail.StoryDossier'
         self.transformable = a
+
+
+
+class MaltaTransformer(ArticlesTransformer):
+
+    def restructure(self):
+        a = {}
+        a['fields'] = self.transformable.to_dict()
+
+        body = '[{"type": "aligned_html", "value": {"html": %s, "alignment": "normal"}, "id": "%s"}]'
+
+        a['fields']['date'] = a['fields']['date'].strftime('%Y-%m-%d')
+        a['fields']['content'] = a['fields']['content'].replace('\r', '').replace('\n', '')
+        a['fields']['body'] = body % (json.dumps(a['fields']['content']), uuid.uuid4()),
+        a['fields']['body'] = a['fields']['body'][0].replace('\\\\', '\\')
+        a['pk'] = a['fields']['pk']
+        a['fields'].pop('content')
+        a['fields'].pop('pk')
+        a['model'] = 'blacktail.Story'
+        self.transformable = a
+
+
+class MaltaPagesTransformer(BaseTransformer):
+
+    def restructure(self):
+        page = {}
+        a = self.transformable.to_dict()
+        page['pk'] = a['pk']
+        page['model'] = 'wagtailcore.page'
+        page['fields'] = {
+            "title": a['title'],
+            "slug": slugify(a['title']),
+            "url_path": "/index/stories/{}/".format(slugify(a['title'])),
+            "live": True,
+            "seo_title": a['seo_title'],
+            "depth": 4,
+            "content_type_id": 34,
+            "path": "000100020002000{}".format(page['pk']),
+        }
+        self.transformable = page
+
+    def transform(self):
+        self.restructure()
+        return self.transformable
