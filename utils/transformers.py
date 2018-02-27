@@ -33,9 +33,12 @@ class ArticlesTransformer(BaseTransformer):
         a['title'] = html.unescape(
             a['title']
         ).replace('\'\'', '\'')
-        a['intro'] = strip_markup(
-            html.unescape(a['intro'])
-        )
+        try:
+            a['intro'] = strip_markup(
+                html.unescape(a['intro'])
+            )
+        except:
+            pass
         a['authors'] = a['authors'].split(',')
         for idx in a['authors']:
             # a['authors'][idx] = int(a['authors'][idx])

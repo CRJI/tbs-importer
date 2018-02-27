@@ -21,6 +21,8 @@ sqlalchemy = "==1.1.15"
 unidecode = "==1.0.22"
 "bs4" = "*"
 requests = "*"
+ipdb = "*"
+dateparser = "*"
 
 
 [dev-packages]
